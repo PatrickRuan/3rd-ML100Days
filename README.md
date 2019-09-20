@@ -1,5 +1,19 @@
 # 3rd-ML100Days
 
+# 順一下， day 1 ~ day 10 觀察 dataframe, 然後思考觀察離群值
+    
+    1.) Day 4 我們拿到 DataFrame, 先看好 shape, describe(), info(), value_counts(), dtype, iloc slicing 了解我們的資料有多少，是什麼
+    2.) 經由 df.dtypes.value_counts() 將資料分成 數值，物件 常用 df_num = df[num_list], 
+        進行 one hot encoding
+        進行 label encoding (如果只有兩個 outcome)
+    3.) 對於 numeric data, 我們移除二值(通常是 0, 1), 進行直方圖或相形圖觀察，也作 cdf 的觀察。
+    
+# 程式學習點
+    
+    Day 5 的三種讀圖檔，一種存圖檔
+    Day 7 reset_index() 可以長成 dataframe，groupby().aggregate('count')
+    Day 9 cdf 
+
 Day 01 (可以忽略，只是練習 產生資料 np.linspace(0,100,101)  np.random.randn(101)
     
 
@@ -196,11 +210,5 @@ Day 10
     
     
     
-順一下， day 1 ~ day 10 觀察 dataframe, 然後思考觀察離群值
-    
-    1.) Day 4 我們拿到 DataFrame, 先看好 shape, describe(), info(), value_counts(), dtype, iloc slicing 了解我們的資料有多少，是什麼
-    2.) 經由 df.dtypes.value_counts() 將資料分成 數值，物件 常用 df_num = df[num_list], 
-        進行 one hot encoding
-        進行 label encoding (如果只有兩個 outcome)
-    3.) 對於 numeric data, 我們移除二值(通常是 0, 1), 進行直方圖或相形圖觀察，也作 cdf 的觀察。
+
     
