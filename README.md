@@ -1,12 +1,13 @@
 # 3rd-ML100Days
 
-# 順一下， day 1 ~ day 10 觀察 dataframe, 然後思考觀察離群值
+# 順一下， day 1 ~ day 11 觀察 dataframe, 然後思考觀察離群值
     
     1.) Day 4 我們拿到 DataFrame, 先看好 shape, describe(), info(), value_counts(), dtype, iloc slicing 了解我們的資料有多少，是什麼
     2.) 經由 df.dtypes.value_counts() 將資料分成 數值，物件 常用 df_num = df[num_list], 
         進行 one hot encoding
         進行 label encoding (如果只有兩個 outcome)
-    3.) 對於 numeric data, 我們移除二值(通常是 0, 1), 進行直方圖或相形圖觀察，也作 cdf 的觀察。
+    3.) Outlier 對於 numeric data, 我們移除二值(通常是 0, 1), 進行直方圖或相形圖觀察，也作 cdf 的觀察。要花時間看，用心想，資料探勘，不是學程式而是要用心看資料，看程式處理好的格式的資料。
+    4.) Outlier 可以用 percentile, 將max 修改為 q99, 或 q50 NA 填補/ 平均數 (mean) /中位數 (median, or Q50)/ 最大/最小值 (max/min, Q100, Q0)/ 分位數 (quantile)
     
 # 程式學習點
     
@@ -208,7 +209,31 @@ Day 10
     estimator = LinearRegression()
     cross_val_score(estimator, train_X, train_Y, cv=5).mean()
     
+Day 11     處理 outliers/ 新增欄位註記/ outliers 或 NA 填補/ 平均數 (mean) /中位數 (median, or Q50)/ 最大/最小值 (max/min, Q100, Q0)/ 分位數 (quantile)
     
+    q100 = [np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'],q= i) for i in range(101)]
+    拆解: 
+    我們需要一個 把 app_train 中間 isnull 標記為 fales, "isntnull" 標記為 true 的 serie, 所以用 ~app_train['AMT_ANNUITY'].isnull()
+    所以把 app_train[~app_train['AMT_ANNUITY'].isnull()] 就會得到 app_train 中 只有 AMT_ANNUITY 非空值的行(筆)資料的 dataframe
+    上面的 dataframe 再加上 ['AMT_ANNUITY'] 就會是 app_train['AMT_ANNUITY'] 非空值的 列(欄)資料
+        = app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY']
+    要作 percentile 要有兩個參數 (serie data, q=多少階)
+    [np.percentile(~, q=i) for i in range(101)]  <== 這是一個 list?
+    
+    app_train[app_train['AMT_ANNUITY'] == app_train['AMT_ANNUITY'].max()] = np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'], q = 99)
+    
+    q_50 = q_all[50]
+    app_train.loc[app_train['AMT_ANNUITY'].isnull(),'AMT_ANNUITY'] = q_50
+    
+    def normalize_value(x):
+        Max = x.max()
+        Min = x.min()
+        x = 2* ((x-Min)/(Max-Min))-1
+        return x
+    app_train['AMT_ANNUITY_NORMALIZED'] = normalize_value(app_train['AMT_ANNUITY'])
+ 
+    mode_goods_price = list(app_train['AMT_GOODS_PRICE'].value_counts().index)
+    app_train.loc[app_train['AMT_GOODS_PRICE'].isnull(), 'AMT_GOODS_PRICE'] = mode_goods_price[0]
     
 
     
