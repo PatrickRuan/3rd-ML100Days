@@ -248,6 +248,18 @@ Day 12 缺失值與標準化
         填補預測值 - 速度較慢但精確，從其他資料欄欄位學得填補知識
             •若若填補範圍廣，且是重要特徵欄欄位時可⽤用本⽅方式
             •本⽅方式須提防overfitting : 可能退化成為其他特徵的組合
+            
+            
+is.null() 專區
 
-
+    # 檢查欄位缺值數量 (去掉.head()可以顯示全部)
+    # 這樣的 isnull() 是對欄位作檢查，也就是 
+    df.isnull().sum().sort_values(ascending=False).head()
+    
+    app_train['AMT_ANNUITY'].isnull(), 沒有意外，這個只會對單一欄位啊!  這是在作 np.percentile 時用到，馬上練習一遍
+        [np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'], q =i) for i in range(101)] 
+        
+    app_train.loc[app_train['AMT_ANNUITY'].isnull(),'AMT_ANNUITY'] = q_50  這個是用 單欄布林表挑選遺失值 資料 行，在限定在 該欄位， loc 用法。
+        
+        
     
