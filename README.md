@@ -235,5 +235,19 @@ Day 11     處理 outliers/ 新增欄位註記/ outliers 或 NA 填補/ 平均�
     mode_goods_price = list(app_train['AMT_GOODS_PRICE'].value_counts().index)
     app_train.loc[app_train['AMT_GOODS_PRICE'].isnull(), 'AMT_GOODS_PRICE'] = mode_goods_price[0]
     
+    
+Day 12 缺失值與標準化
+
+        填補統計值
+            •填補平均值(Mean) : 數值型欄欄位，偏態不明顯
+            •填補中位數(Median) : 數值型欄欄位，偏態很明顯
+            •填補眾數(Mode) : 類別型欄欄位
+        填補指定值 - 需對欄欄位領域知識已有了了解
+            •補 0 : 空缺原本就有 0 的含意，如前⾴頁的房間數
+            •補不可能出現的數值 : 類別型欄欄位，但不適合⽤用眾數時
+        填補預測值 - 速度較慢但精確，從其他資料欄欄位學得填補知識
+            •若若填補範圍廣，且是重要特徵欄欄位時可⽤用本⽅方式
+            •本⽅方式須提防overfitting : 可能退化成為其他特徵的組合
+
 
     
