@@ -252,6 +252,18 @@ Day 12 缺失值與標準化
         
         其他處理 MinMaxScaler(), StandardScaler()
         stds.fit_transform(df)
+
+Day 13 Dataframe operation
+    
+    concat, mearge, melt
+    sub_df = app_train.loc[app_train['AMT_INCOME_TOTAL'] > app_train['AMT_INCOME_TOTAL'].mean(), ['SK_ID_CURR', 'TARGET']]
+    # 應該要熟悉上面的寫法，loc 中第一項是在作 true or false 的行，資料筆數的篩選，底下兩行都是類似
+    # app_train.loc[app_train['AMT_ANNUITY'].isnull(),'AMT_ANNUITY'] = q_50
+    # [np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'],q= i) for i in range(101)]
+    # 取前 10000 筆作範例: 分別將 AMT_INCOME_TOTAL, AMT_CREDIT, AMT_ANNUITY 除以根據 NAME_CONTRACT_TYPE 分組後的平均數，
+    app_train.loc[0:10000, ['NAME_CONTRACT_TYPE', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY']].groupby(['NAME_CONTRACT_TYPE']).apply(lambda x: x / x.mean())
+
+    
             
             
 is.null() 專區
