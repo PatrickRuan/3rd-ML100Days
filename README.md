@@ -1,6 +1,6 @@
 # 3rd-ML100Days
 
-# 順一下， day 1 ~ day 11 觀察 dataframe, 然後思考觀察離群值
+# 順一下， day 1 ~ day 14 觀察 dataframe, 然後思考觀察離群值
     
     1.) Day 4 我們拿到 DataFrame, 先看好 shape, describe(), info(), value_counts(), dtype, iloc slicing 了解我們的資料有多少，是什麼
     2.) 經由 df.dtypes.value_counts() 將資料分成 數值，物件 常用 df_num = df[num_list], 
@@ -9,6 +9,9 @@
     3.) Outlier 對於 numeric data, 我們移除二值(通常是 0, 1), 進行直方圖或相形圖觀察，也作 cdf 的觀察。要花時間看，用心想，資料探勘，不是學程式而是要用心看資料，看程式處理好的格式的資料。
     4.) Outlier 可以用 percentile, 將max 修改為 q99, 或 q50 NA 填補/ 平均數 (mean) /中位數 (median, or Q50)/ 最大/最小值 (max/min, Q100, Q0)/ 分位數 (quantile)
     5.) 缺失值補值 常用 isnull(), fillna(), 簡單方式是 fillna(0), fillna(-1), fillna(df.mean()), 
+    
+    拿到資料，觀察行列多寡外型，統計量，是數值還是string, 作 LE, OHE, 然後看 outlier 乖乖看直方圖。cdf，然後將怪怪值補 -1, mean(), median, mode(), q99, q50, or max, min, or NA... 補缺失值，先告一段落，我們來作 
+    6.) correlation
     
 # 程式學習點
     
@@ -262,7 +265,11 @@ Day 13 Dataframe operation
     # [np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'],q= i) for i in range(101)]
     # 取前 10000 筆作範例: 分別將 AMT_INCOME_TOTAL, AMT_CREDIT, AMT_ANNUITY 除以根據 NAME_CONTRACT_TYPE 分組後的平均數，
     app_train.loc[0:10000, ['NAME_CONTRACT_TYPE', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY']].groupby(['NAME_CONTRACT_TYPE']).apply(lambda x: x / x.mean())
+    (lambda x:(x-np.mean(x))/np.std(x))  # z-transform
 
+Day 14 相關係數
+    
+    no.corrcoef(x,y), y = x+np.random.normal(0,10,1000), x = np.random.randint(0,50,1000)
     
             
             
