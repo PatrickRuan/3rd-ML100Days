@@ -11,7 +11,9 @@
     5.) 缺失值補值 常用 isnull(), fillna(), 簡單方式是 fillna(0), fillna(-1), fillna(df.mean()), 
     
     拿到資料，觀察行列多寡外型，統計量，是數值還是string, 作 LE, OHE, 然後看 outlier 乖乖看直方圖。cdf，然後將怪怪值補 -1, mean(), median, mode(), q99, q50, or max, min, or NA... 補缺失值，先告一段落，我們來作 
+    ***我們也會拿 不同結果 如 target=1, target =2 作圖比較，比如必較 target=1, target =2 的 cdf 看看分布有沒有不同... 
     6.) correlation
+    7.) 差不多了，可能可以試試看 簡化模型，將連續值化成離散階層，用 pd.cut(df[col], bins)
     
 # 程式學習點
     
@@ -270,6 +272,12 @@ Day 13 Dataframe operation
 Day 14 相關係數
     
     no.corrcoef(x,y), y = x+np.random.normal(0,10,1000), x = np.random.randint(0,50,1000)
+    
+Day 17 連續值離散化 參數下降，可以... 簡單化模型?
+    ages["equal_width_age"] = pd.cut(ages["age"], 4)
+    ages["equal_width_age"] = pd.qcut(ages["age"], 4)
+    bins = pd.IntervalIndex.from_tuples([(0, 10), (10, 20), (20, 30), (30, 50), (50, 100)])
+    ages['customized_age_grp']=pd.cut(ages['age'], bins)
     
             
             
