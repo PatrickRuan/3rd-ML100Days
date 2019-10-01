@@ -6,3 +6,5 @@ Day 13 Example and homework
   merge / transform
   subset
   groupby
+  
+Day 18 離散化資料值
