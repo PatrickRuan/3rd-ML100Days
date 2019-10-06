@@ -15,6 +15,35 @@
     6.) correlation
     7.) 差不多了，可能可以試試看 簡化模型，將連續值化成離散階層，用 pd.cut(df[col], bins)
     
+*** D1~ D6，
+    
+    我們拿到資料，先看 shape, describe (mean, max, min...), dtype, and go ohe 
+
+*** D7 ~ D10，
+
+    我們開始看 觀察 資料欄位的類型求數值欄的平均值等，物件欄的數量等。
+    用直方圖觀察異常、用 cdf 留白觀察異常值，也嘗試了 clip data or 去除異常值。
+    用 cross_val_score(...,cv=5).mean() 比較。
+
+*** D11 ~ D13  
+
+    我們的缺失值可以用 -1, mean()，直接刪去，.clip(300,2000)，
+    Outlier 也可以用 percentile, 將max 修改為 q99, 
+    或 q50 NA 填補/ 平均數 (mean) /中位數 (median, or Q50)/ 最大/最小值 (max/min, Q100, Q0)/ 分位數 (quantile)
+
+*** D14 ~ D16，
+    
+    做兩兩資料欄的相關係數與散射圖，與後頭會介紹的 Heatmap 相關不相同。
+    然後發揚光大 hist() 這一派，加入 sns.kdeplot() 可以將各種 labeloutcome 放在一張圖上去練習解釋。
+
+**** Day 17 ~ Day 20 (EDA finished), 
+
+    17, 18 在練習離散化資料，跟 quantization 類似吧！　
+    19 subplot 繪圖技巧， 
+    20 heatmap and pairgrid. 
+
+
+    
 # 程式學習點
     
     Day 5 的三種讀圖檔，一種存圖檔
@@ -146,7 +175,6 @@ Day 06 One Hot Encoding,
       from keras.utils import to_categorical
       data_y = to_categorical(data_y)
 
-**** 到目前為止，我們拿到資料，先看 shape, describe (mean, max, min...), dtype, and go ohe 
 
 Day 07 欄位類別， 
     
@@ -233,10 +261,6 @@ Day 10
     train_X = MMEncoder.fit_transform(df)
     estimator = LinearRegression()
     cross_val_score(estimator, train_X, train_Y, cv=5).mean()
-      
-*** D1~ D6，我們拿到資料，先看 shape, describe (mean, max, min...), dtype, and go ohe 
-
-**** D7 ~ D10，我們開始看 觀察 資料欄位的類型求數值欄的平均值等，物件欄的數量等。用直方圖觀察異常、用 cdf 留白觀察異常值，也嘗試了 clip data or 去除異常值。用 cross_val_score(...,cv=5).mean() 比較。
     
 
     
@@ -295,43 +319,38 @@ Day 13 Dataframe operation
     # 取前 10000 筆作範例: 分別將 AMT_INCOME_TOTAL, AMT_CREDIT, AMT_ANNUITY 除以根據 NAME_CONTRACT_TYPE 分組後的平均數，
     app_train.loc[0:10000, ['NAME_CONTRACT_TYPE', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY']].groupby(['NAME_CONTRACT_TYPE']).apply(lambda x: x / x.mean())
     (lambda x:(x-np.mean(x))/np.std(x))  # z-transform
-    
-*** D1~ D6，我們拿到資料，先看 shape, describe (mean, max, min...), dtype, and go ohe 
-
-*** D7 ~ D10，我們開始看 觀察 資料欄位的類型求數值欄的平均值等，物件欄的數量等。用直方圖觀察異常、用 cdf 留白觀察異常值，也嘗試了 clip data or 去除異常值。用 cross_val_score(...,cv=5).mean() 比較。
-
-**** D11 ~ D13  我們的缺失值可以用 -1, mean()，直接刪去，.clip(300,2000)，Outlier 也可以用 percentile, 將max 修改為 q99, 或 q50 NA 填補/ 平均數 (mean) /中位數 (median, or Q50)/ 最大/最小值 (max/min, Q100, Q0)/ 分位數 (quantile)
 
 
 Day 14 相關係數
     
     np.corrcoef(x,y), y = x+np.random.normal(0,10,1000), x = np.random.randint(0,50,1000)
     
-Day 15, 相關兩資料(兩欄)的點圖 plt.plot(sub_df['DAYS_EMPLOYED'] / (-365), sub_df['AMT_INCOME_TOTAL'], '.')， 搭配 np.corrcoef(x,y)
+Day 15, 
+
+    相關兩資料(兩欄)的點圖 plt.plot(sub_df['DAYS_EMPLOYED'] / (-365), sub_df['AMT_INCOME_TOTAL'], '.')， 搭配 np.corrcoef(x,y)
     
-Day 16, 利用 sns.kdeplot(x1) 作出類似 plt.hist() 的分布，也鼓勵用 kdeplot(x1, target='1') pk target ='0', 因為單純一條線，所以同圖看很清楚。
+Day 16, 
+    
+    利用 sns.kdeplot(x1) 作出類似 plt.hist() 的分布，也鼓勵用 kdeplot(x1, target='1') pk target ='0', 因為單純一條線，所以同圖看很清楚。
 
-*** D1~ D6，我們拿到資料，先看 shape, describe (mean, max, min...), dtype, and go ohe 
-
-*** D7 ~ D10，我們開始看 觀察 資料欄位的類型求數值欄的平均值等，物件欄的數量等。用直方圖觀察異常、用 cdf 留白觀察異常值，也嘗試了 clip data or 去除異常值。用 cross_val_score(...,cv=5).mean() 比較。
-
-*** D11 ~ D13  我們的缺失值可以用 -1, mean()，直接刪去，.clip(300,2000)，Outlier 也可以用 percentile, 將max 修改為 q99, 或 q50 NA 填補/ 平均數 (mean) /中位數 (median, or Q50)/ 最大/最小值 (max/min, Q100, Q0)/ 分位數 (quantile)
-
-**** D14 ~ D16，做兩兩資料欄的相關係數與散射圖，與後頭會介紹的 Heatmap 相關不相同。然後發揚光大 hist() 這一派，加入 sns.kdeplot() 可以將各種 labeloutcome 放在一張圖上去練習解釋。
 
 Day 17 Day 18  連續值離散化 參數下降，可以... 簡單化模型?
+    
     ages["equal_width_age"] = pd.cut(ages["age"], 4)
     ages["equal_width_age"] = pd.qcut(ages["age"], 4)
     bins = pd.IntervalIndex.from_tuples([(0, 10), (10, 20), (20, 30), (30, 50), (50, 100)])
     ages['customized_age_grp']=pd.cut(ages['age'], bins)
     
 Day 19 subplot, 
+
     #起手式
     plt.figure(figsize=(8,8))
     plt.subplot(321)
     # 比較有趣的是，將資料分組，畫在同一張圖上，一張圖具有 subplot 的效果:繪製分群後的 10 條 KDE 曲線
     
-Day 20 heatmap:  sns.heatmap(ext_data_corrs, cmap = plt.cm.RdYlBu_r, vmin = -0.25, annot = True, vmax = 0.6)
+Day 20 heatmap:  
+
+    sns.heatmap(ext_data_corrs, cmap = plt.cm.RdYlBu_r, vmin = -0.25, annot = True, vmax = 0.6)
     grid = sns.PairGrid(data = plot_data, size = 3, diag_sharey=False,
                     hue = 'TARGET', vars = [x for x in list(plot_data.columns) if x != 'TARGET'])
     # 上半部為 scatter
@@ -341,38 +360,7 @@ Day 20 heatmap:  sns.heatmap(ext_data_corrs, cmap = plt.cm.RdYlBu_r, vmin = -0.2
     # 下半部放 density plot
     grid.map_lower(sns.kdeplot, cmap = plt.cm.OrRd_r)
     
-*** D1~ D6，我們拿到資料，先看 shape, describe (mean, max, min...), dtype, and go ohe 
 
-*** D7 ~ D10，我們開始看 觀察 資料欄位的類型求數值欄的平均值等，物件欄的數量等。用直方圖觀察異常、用 cdf 留白觀察異常值，也嘗試了 clip data or 去除異常值。用 cross_val_score(...,cv=5).mean() 比較。
-
-*** D11 ~ D13  我們的缺失值可以用 -1, mean()，直接刪去，.clip(300,2000)，Outlier 也可以用 percentile, 將max 修改為 q99, 或 q50 NA 填補/ 平均數 (mean) /中位數 (median, or Q50)/ 最大/最小值 (max/min, Q100, Q0)/ 分位數 (quantile)
-
-*** D14 ~ D16，做兩兩資料欄的相關係數與散射圖，與後頭會介紹的 Heatmap 相關不相同。然後發揚光大 hist() 這一派，加入 sns.kdeplot() 可以將各種 labeloutcome 放在一張圖上去練習解釋。
-
-**** Day 17 ~ Day 20 (EDA finished), 17, 18 在練習離散化資料，跟 quantization 類似吧！　19 subplot 繪圖技巧， 20 heatmap and pairgrid. 
-
-
-
-
-   
-繪圖專區
-    # 改變繪圖樣式 (style)
-    直方圖之類的
-    plt.style.use('ggplot') 
-    plt.hist(app_train['DAYS_BIRTH'] / 365, edgecolor = 'k', bins = 25)
-    sns.kdeplot(app_train.loc[app_train['TARGET'] == 0, 'DAYS_BIRTH'] / 365, label = 'target == 0')
-    sns.kdeplot(app_train.loc[app_train['TARGET'] == 1, 'DAYS_BIRTH'] / 365, label = 'target == 1')
-    sns.distplot(app_train.loc[app_train['TARGET'] == 1, 'DAYS_BIRTH'] / 365, label = 'target == 1')
-    # Heatmap
-    如果是兩個欄資料，可以用 plot plt.plot(x1, x2) 看
-    sns.heatmap(ext_data_corrs, cmap = plt.cm.RdYlBu_r, vmin = -0.25, annot = True, vmax = 0.6)
-    grid = sns.PairGrid(Data)
-    grid.map_upper(plt.scatter)
-    gird.map_diag(sns.kdeplot)
-    grid.map_lower(sns.kde.plot, cmap=plt.cm.OrRd_r)
-    
-    
-            
 is.null() 專區
 
     # 檢查欄位缺值數量 (去掉.head()可以顯示全部)
