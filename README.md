@@ -18,11 +18,20 @@
 # 程式學習點
     
     Day 5 的三種讀圖檔，一種存圖檔
-    Day 7 reset_index() 可以長成 dataframe，groupby().aggregate('count')
+    Day 7 reset_index() 可以長成 dataframe、groupby().aggregate('count')
     Day 9 cdf 
+        
+        # 再把只有 2 值 (通常是 0,1) 的欄位去掉
+        numeric_columns = list(app_train[numeric_columns].columns[list(app_train[numeric_columns].apply(lambda x:len(x.unique())!=2 ))])
+        cdf = app_train['AMT_INCOME_TOTAL'].value_counts().sort_index().cumsum()
+        plt.plot(list(cdf.index), cdf/cdf.max())   # 改變 y 軸的 Scale, 讓我們可以正常檢視 ECDF
+    Day 10   cross_val_score(estimator, train_X, train_Y, cv=5).mean()
+        # 將 1stFlrSF 限制在你覺得適合的範圍內, 捨棄離群值
+        keep_indexs = (df['1stFlrSF']> 800) & (df['1stFlrSF']< 2500)
+        df = df[keep_indexs]
+    Day 11 q100 = [np.percentile(app_train[~app_train['AMT_ANNUITY'].isnull()]['AMT_ANNUITY'],q= i) for i in range(101)]
 
-Day 01 (可以忽略，只是練習 產生資料 np.linspace(0,100,101)  np.random.randn(101)
-    
+Day 01 (可以忽略，只是練習 產生資料 np.linspace(0,100,101)  np.random.randn(101)    
 
     y = w*(x+n1a*n1)+b
     yp=w*x+b
@@ -32,7 +41,6 @@ Day 01 (可以忽略，只是練習 產生資料 np.linspace(0,100,101)  np.rand
     plt.legend(loc=2)One Hot Encoding for dataframe 
    
 Day 02 (可以忽略，認識 Machine Learning)
-
 Day 03 (可以忽略，了解各公司是怎麼應用機器學習在實際的專案上)
 
 Day 04 觀察資料觀察 DataFrame，Training Data, 先看 shape, desribe(), dtypes.value_counts(), app_train.iloc[300:310,1:5]
@@ -122,15 +130,17 @@ Day 5 產生 DataFrame 的方法
 
 Day 06 One Hot Encoding,
 
-    One Hot Encoding for dataframe 
+    One Hot Encoding for dataframe   # df is a DataFrame
       df = pd.get_dummies(df)
       
-    One Hot Encoding for array
+    One Hot Encoding for array      # data_y is a numpy object.  
       from keras.utils import to_categorical
       data_y = to_categorical(data_y)
+**** 到目前為止，我們拿到資料，先看 shape, describe (mean, max, min...), dtype, and go ohe 
 
 Day 07 欄位類別， 
     
+    # 關於 reset_index() 很精彩
     df.dtypes.value_counts() 相當
     dtype_df = df.dtypes.reset_index()
     dtype_df.columns = ["Count", "Column Type"]
@@ -192,12 +202,11 @@ Day 10
     train_X = MMEncoder.fit_transform(df)
     estimator = LinearRegression()
     cross_val_score(estimator, train_X, train_Y, cv=5).mean()
+    
     # 將 1stFlrSF 限制在你覺得適合的範圍內, 調整離群值
-
     df['1stFlrSF'] = df['1stFlrSF'].clip(300, 2000)
     sns.regplot(x = df['1stFlrSF'], y=train_Y)
     plt.show()
-
 
     # 做線性迴歸, 觀察分數
     train_X = MMEncoder.fit_transform(df)
@@ -214,6 +223,11 @@ Day 10
     train_X = MMEncoder.fit_transform(df)
     estimator = LinearRegression()
     cross_val_score(estimator, train_X, train_Y, cv=5).mean()
+      
+*** D1~ D6，我們拿到資料，先看 shape, describe (mean, max, min...), dtype, and go ohe 
+**** D7 ~ D10，我們開始看 觀察 資料欄位的類型求數值欄的平均值等，物件欄的數量等。用直方圖觀察異常、用 cdf 留白觀察異常值，也嘗試了 clip data or 去除異常值。用 cross_val_score(...,cv=5).mean() 比較。
+    
+
     
 Day 11     處理 outliers/ 新增欄位註記/ outliers 或 NA 填補/ 平均數 (mean) /中位數 (median, or Q50)/ 最大/最小值 (max/min, Q100, Q0)/ 分位數 (quantile)
     
@@ -241,6 +255,8 @@ Day 11     處理 outliers/ 新增欄位註記/ outliers 或 NA 填補/ 平均�
     mode_goods_price = list(app_train['AMT_GOODS_PRICE'].value_counts().index)
     app_train.loc[app_train['AMT_GOODS_PRICE'].isnull(), 'AMT_GOODS_PRICE'] = mode_goods_price[0]
     
+ 
+    
     
 Day 12 缺失值與標準化
 
@@ -257,6 +273,9 @@ Day 12 缺失值與標準化
         
         其他處理 MinMaxScaler(), StandardScaler()
         stds.fit_transform(df)
+*** D1~ D6，我們拿到資料，先看 shape, describe (mean, max, min...), dtype, and go ohe 
+*** D7 ~ D10，我們開始看 觀察 資料欄位的類型求數值欄的平均值等，物件欄的數量等。用直方圖觀察異常、用 cdf 留白觀察異常值，也嘗試了 clip data or 去除異常值。用 cross_val_score(...,cv=5).mean() 比較。
+**** Outlier 可以用 percentile, 將max 修改為 q99, 或 q50 NA 填補/ 平均數 (mean) /中位數 (median, or Q50)/ 最大/最小值 (max/min, Q100, Q0)/ 分位數 (quantile)
 
 Day 13 Dataframe operation
     
