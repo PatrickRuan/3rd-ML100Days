@@ -8,4 +8,4 @@ Day 12 作業
 
 Day 22, Day 23 
 
-Day 24 hw
+Day 24, Day 25 hw
