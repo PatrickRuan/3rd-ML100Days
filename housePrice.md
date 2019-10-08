@@ -6,4 +6,4 @@ Day 22 example for kaggle baseline
 
 Day 23 example Day_023_Reduce_Skewness
 
-Day 24 example
+Day 24, Day25 example
