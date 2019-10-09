@@ -1,4 +1,4 @@
-# 3rd-ML100Days
+# EDA 目的
 目的:
     
     把資料弄得清楚適當: 了解資料特性、類別，對於物件特徵必須作好 encoding、
@@ -6,15 +6,11 @@
     也把大家關心的資料關聯性呈現(correlation or heatmap)，
     更高階的對資料的可視性呈現與 不同 target vs 特定特徵值 
 
-機器學習概論
 
-機器學習概論 (申論題)
 
-機器學習-流程與步驟 ( 申論題)
+資料前處理 > 訓練/測試集切分 >選定目標與評估基準 > 建立模型 > 調整參數。熟悉整個 ML 的流程 EDA/讀取資料與分析流程_如何讀取資料以及萃取出想要了解的信息
 
-    資料前處理 > 訓練/測試集切分 >選定目標與評估基準 > 建立模型 > 調整參數。熟悉整個 ML 的流程
-EDA/讀取資料與分析流程_如何讀取資料以及萃取出想要了解的信息
-索性分析
+# EDA
 
 D5
 如何新建一個 dataframe? 如何讀取其他資料? (非 csv 的資料)
@@ -83,41 +79,6 @@ Heatmap & Grid-plot
 D21
 模型初體驗 Logistic Regression
 在我們開始使用任何複雜的模型之前，有一個最簡單的模型當作 baseline 是一個好習慣
-
-
-D5：如何新建一個 dataframe? 如何讀取其他資料? (非 csv 的資料)
-
-D6：EDA: 欄位的資料類型介紹及處理
-
-D7：特徵類型
-
-D8：EDA資料分佈
-
-D9：EDA: Outlier 及處理
-
-D10：數值型特徵 - 去除離群值
-
-D11：常用的數值取代：中位數與分位數連續數值標準化
-
-D12：數值型特徵-補缺失值與標準化
-
-D13：DataFrame operationData frame merge/常用的 DataFrame 操作
-
-D14：程式實作 EDA: correlation/相關係數簡介
-
-D15：EDA from Correlation
-
-D16：EDA: 不同數值範圍間的特徵如何檢視/繪圖與樣式Kernel Density Estimation (KDE)
-
-D17：EDA: 把連續型變數離散化
-
-D18：程式實作 把連續型變數離散化
-
-D19：Subplots
-
-D20：Heatmap & Grid-plot
-
-D21：模型初體驗 Logistic Regression
 
 
 
