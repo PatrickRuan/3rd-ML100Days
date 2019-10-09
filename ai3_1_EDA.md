@@ -1,7 +1,10 @@
 # 3rd-ML100Days
 目的:
     
-    把資料弄得清楚適當: 了解資料特性、類別，對於物件特徵必須作好 encoding、對於特徵間的size, scale 作常規化、標準化或minmax等、從分布的了解到去除異常值(q99, or clip or drop)、也把 nan 補好 (-1, mean(), mode, median, q50...)、也把大家關心的資料關聯性呈現(correlation or heatmap)，更高階的對資料的可視性呈現與 不同 target vs 特定特徵值 
+    把資料弄得清楚適當: 了解資料特性、類別，對於物件特徵必須作好 encoding、
+    對於特徵間的size, scale 作常規化、標準化或minmax等、從分布的了解到去除異常值(q99, or clip or drop)、也把 nan 補好 (-1, mean(), mode, median, q50...)、
+    也把大家關心的資料關聯性呈現(correlation or heatmap)，
+    更高階的對資料的可視性呈現與 不同 target vs 特定特徵值 
 
 機器學習概論
 
