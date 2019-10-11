@@ -12,3 +12,6 @@ D29 example 特徵組合 - 類別與數值組合
 
 D30 example D30：特徵選擇
 
+D31 example D31：特徵評估
+
+
