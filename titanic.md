@@ -13,3 +13,5 @@ Day 24, Day 25 hw
 D26 example, HW
 
 D29 hw, D29：特徵組合 - 類別與數值組合
+
+D30 hw, D30：特徵選擇 
