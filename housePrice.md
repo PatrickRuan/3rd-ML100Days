@@ -7,3 +7,6 @@ Day 22 example for kaggle baseline
 Day 23 example Day_023_Reduce_Skewness
 
 Day 24, Day25 example
+
+D29 example 特徵組合 - 類別與數值組合
+
