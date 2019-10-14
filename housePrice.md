@@ -14,4 +14,6 @@ D30 example D30：特徵選擇
 
 D31 example D31：特徵評估
 
+D49 example ensemble
+
 
